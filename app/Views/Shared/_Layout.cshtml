@@ -3,44 +3,144 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="description">
+    <meta content="" name="keywords">
     <title>@ViewData["Title"] - app</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/app.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">app</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <header id="header" >
+        <div class="container d-flex align-items-center">
+            <h1 class="logo me-auto"><a asp-area="" asp-controller="Home" asp-action="Index">Phúc Lộc</a></h1>
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Team" asp-action="Team">Đội bóng</a></li>
+
+                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Contact" asp-action="Contact">Liên hệ</a></li>
+
+                    <li class="dropdown">
+                        <a href="#">
+                            <span>Sân bóng</span><i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </a>
+                        <ul>
+                            <li><a href="#">Danh sách sân</a></li>
+                            <li class="dropdown">
+                                <a href="#"><span>Thông tin</span><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                                <ul>
+                                    <li><a href="#">Thông tin 1</a></li>
+                                    <li><a href="#">Thông tin 2</a></li>
+                                    <li><a href="#">Thông tin 3</a></li>
+                                    <li><a href="#">Thông tin 4</a></li>
+                                    <li><a href="#">Thông tin 5</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Tin tức</a></li>
+                            <li><a href="#">Địa chỉ</a></li>
+                            <li><a href="#">Giúp đỡ</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">
+                            <span>Ngôn ngữ</span><i class="fa fa-globe" aria-hidden="true"></i>
+                        </a>
+                        <ul>
+                            <li><a href="#">Tiếng Anh</a></li>
+                            <li><a href="#">Tiếng Việt</a></li>
+                            <li><a href="#">Tiếng Nhật</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="#">Đăng ký</a></li>
+                    <li><a class="getstarted scrollto" href="#">Đăng nhập</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                    <h1>“Bóng đá là cuộc chơi, nhưng đừng quên mang theo nón bảo hiểm!”</h1>
+                    <h2>Trong thế giới của chúng ta, bóng đá không chỉ là một môn thể thao phổ biến mà còn là một nguồn cảm hứng, niềm đam mê và niềm tự hào.
+                       </h2>
+                    <div class="d-flex justify-content-center justify-content-lg-start">
+                        <a href="#about" class="btn-get-started scrollto">Đăng ký ngay!!!</a>
+                        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video">
+                            <i class="fa fa-stop-circle" aria-hidden="true"></i>
+                            <span>Xem video</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                    <img src="/lib/assests/gia-tham-co-nhan-tao-san-bong-03.jpg" class="img-fluid animated" alt="">
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - app - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </section><!-- End Hero -->
+            @RenderBody()
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h3>Phúc Lộc</h3>
+                        <p>
+                            <strong>Địa chỉ: </strong>200 Kinh Dương Vương<br>
+                            Hoà Minh, Đà Nẵng<br>
+                            <br><br>
+                            <strong>Số điện thoại:</strong> 09034807417<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Link</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Trang chủ</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Thông tin chi tiết</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Dịch vụ</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Hình ảnh</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Dịch vụ đi kèm</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Đặt xe</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Giúp đỡ</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Báo cáo</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Khiếu nại</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Góp ý</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Mạng xã hội</h4>
+                        <p>Kết nối mạng xã hội để xem thêm thông tin về sân bóng</p>
+                        <div class="social-links mt-3">
+                            <a href="#"><i class="fa fa-motorcycle" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-gift" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-comment" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-bus" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom clearfix">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Phúc Lộc</span></strong>. Đã đăng ký Bản quyền
+            </div>
+            <div class="credits">
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
