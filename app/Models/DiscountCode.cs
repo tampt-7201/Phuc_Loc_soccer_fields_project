@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace app.Models
 {
-    public class BookingGridironService
+    public class DiscountCode
     {
         public int Id { get; set; }
-        public int number { get; set; }
+        public string Code { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal Price { get; set; }
-        public int ServiceId { get; set; }
-        public Service Service { get; set; }
+        public decimal DiscountPercentage { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public bool IsUsed { get; set; }
         public int BookingId { get; set; }
         public Booking Booking { get; set; }
     }

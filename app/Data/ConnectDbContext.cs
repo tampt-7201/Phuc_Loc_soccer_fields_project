@@ -17,5 +17,10 @@ namespace app.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<BookingGridironService> bookingGridironServices { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<TypeGridiron> TypeGridirons { get; set; }
+        public DbSet<UserBookingGridiron> UserBookingGridirons { get; set; }
+        public DbSet<DiscountCode> DiscountCodes { get; set; }
+        public DbSet<Hour> hours { get; set; }
+        public DbSet<BookingGridironHour> BookingGridironHours { get; set; }
     }
 }
