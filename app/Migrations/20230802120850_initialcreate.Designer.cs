@@ -12,8 +12,8 @@ using app.Data;
 namespace app.Migrations
 {
     [DbContext(typeof(ConnectDbContext))]
-    [Migration("20230727120023_BookingGridironsServiceRelationship")]
-    partial class BookingGridironsServiceRelationship
+    [Migration("20230802120850_initialcreate")]
+    partial class initialcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,9 +101,6 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GridironId")
-                        .HasColumnType("int");
-
                     b.Property<string>("NameSecondPersion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -115,25 +112,40 @@ namespace app.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("TimeEnd")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("TimeStart")
-                        .HasColumnType("time");
-
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GridironId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("app.Models.BookingGridironHour", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HourId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserBookingGridironId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HourId");
+
+                    b.HasIndex("UserBookingGridironId");
+
+                    b.ToTable("BookingGridironHours");
                 });
 
             modelBuilder.Entity("app.Models.BookingGridironService", b =>
@@ -147,7 +159,13 @@ namespace app.Migrations
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("number")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -157,6 +175,37 @@ namespace app.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("bookingGridironServices");
+                });
+
+            modelBuilder.Entity("app.Models.DiscountCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.ToTable("DiscountCodes");
                 });
 
             modelBuilder.Entity("app.Models.Gridiron", b =>
@@ -174,12 +223,33 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("TypeGridironId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TypeGridironId");
+
                     b.ToTable("Gridirons");
+                });
+
+            modelBuilder.Entity("app.Models.Hour", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<TimeSpan>("TimeEnd")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("TimeStart")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("hours");
                 });
 
             modelBuilder.Entity("app.Models.ImageGridiron", b =>
@@ -269,7 +339,7 @@ namespace app.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -281,6 +351,26 @@ namespace app.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("app.Models.TypeGridiron", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeGridirons");
                 });
 
             modelBuilder.Entity("app.Models.User", b =>
@@ -314,6 +404,32 @@ namespace app.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("app.Models.UserBookingGridiron", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GridironId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("GridironId");
+
+                    b.ToTable("UserBookingGridirons");
+                });
+
             modelBuilder.Entity("app.Models.Account", b =>
                 {
                     b.HasOne("app.Models.User", "User")
@@ -338,33 +454,44 @@ namespace app.Migrations
 
             modelBuilder.Entity("app.Models.Booking", b =>
                 {
-                    b.HasOne("app.Models.Gridiron", "Gridiron")
-                        .WithMany("bookings")
-                        .HasForeignKey("GridironId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("app.Models.User", "User")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Gridiron");
-
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("app.Models.BookingGridironHour", b =>
+                {
+                    b.HasOne("app.Models.Hour", "Hour")
+                        .WithMany("bookingGridironHours")
+                        .HasForeignKey("HourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("app.Models.UserBookingGridiron", "UserBookingGridiron")
+                        .WithMany("bookingGridironHours")
+                        .HasForeignKey("UserBookingGridironId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hour");
+
+                    b.Navigation("UserBookingGridiron");
                 });
 
             modelBuilder.Entity("app.Models.BookingGridironService", b =>
                 {
                     b.HasOne("app.Models.Booking", "Booking")
-                        .WithMany()
+                        .WithMany("BookingGridironServices")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("app.Models.Service", "Service")
-                        .WithMany()
+                        .WithMany("BookingGridironServices")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -372,6 +499,28 @@ namespace app.Migrations
                     b.Navigation("Booking");
 
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("app.Models.DiscountCode", b =>
+                {
+                    b.HasOne("app.Models.Booking", "Booking")
+                        .WithMany("DiscountCodes")
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
+                });
+
+            modelBuilder.Entity("app.Models.Gridiron", b =>
+                {
+                    b.HasOne("app.Models.TypeGridiron", "TypeGridiron")
+                        .WithMany("Gridirons")
+                        .HasForeignKey("TypeGridironId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TypeGridiron");
                 });
 
             modelBuilder.Entity("app.Models.ImageGridiron", b =>
@@ -415,11 +564,54 @@ namespace app.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("app.Models.UserBookingGridiron", b =>
+                {
+                    b.HasOne("app.Models.Booking", "Booking")
+                        .WithMany("UserBookingGridirons")
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("app.Models.Gridiron", "Gridiron")
+                        .WithMany("UserBookingGridirons")
+                        .HasForeignKey("GridironId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
+
+                    b.Navigation("Gridiron");
+                });
+
+            modelBuilder.Entity("app.Models.Booking", b =>
+                {
+                    b.Navigation("BookingGridironServices");
+
+                    b.Navigation("DiscountCodes");
+
+                    b.Navigation("UserBookingGridirons");
+                });
+
             modelBuilder.Entity("app.Models.Gridiron", b =>
                 {
                     b.Navigation("ImageGridirons");
 
-                    b.Navigation("bookings");
+                    b.Navigation("UserBookingGridirons");
+                });
+
+            modelBuilder.Entity("app.Models.Hour", b =>
+                {
+                    b.Navigation("bookingGridironHours");
+                });
+
+            modelBuilder.Entity("app.Models.Service", b =>
+                {
+                    b.Navigation("BookingGridironServices");
+                });
+
+            modelBuilder.Entity("app.Models.TypeGridiron", b =>
+                {
+                    b.Navigation("Gridirons");
                 });
 
             modelBuilder.Entity("app.Models.User", b =>
@@ -434,6 +626,11 @@ namespace app.Migrations
                     b.Navigation("Phones");
 
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("app.Models.UserBookingGridiron", b =>
+                {
+                    b.Navigation("bookingGridironHours");
                 });
 #pragma warning restore 612, 618
         }
